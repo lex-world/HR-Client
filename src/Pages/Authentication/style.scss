@@ -1,3 +1,26 @@
-.auth{
-    
+.auth__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  .auth__container__openCamera {
+      flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid grey;
+      margin-bottom: 20px;
+    }
+  }
+
+  .auth__container__captureImageBtn{
+    margin-top: 20px;
+  }
 }
