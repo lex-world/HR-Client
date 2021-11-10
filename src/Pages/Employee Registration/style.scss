@@ -1,0 +1,46 @@
+.registerEmployee__container {
+    h1{
+        text-align: center;
+    }
+  .registerEmployee__container__cameraNotOpened {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 1px solid grey;
+      margin-bottom: 20px;
+    }
+  }
+
+  .registerEmployee__container__cameraOpened {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .registerEmployee__container__cameraOpened__camera{
+        display: flex;
+        // flex-direction: column;
+        align-items: center;
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .MuiButton-root {
+      margin-top: 10px;
+    }
+    form {
+        margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
