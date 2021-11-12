@@ -18,6 +18,7 @@ import Webcam from "react-webcam";
 import { Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Axios from "axios";
+import { Helmet } from "react-helmet";
 
 /**
  * @constants for webcam in browser
@@ -190,7 +191,11 @@ class Auth extends Component {
 
     return (
       <div className="auth__container">
+        <Helmet>
+          <title>Employee Authentication | Hash Technologies</title>
+        </Helmet>
         <h1>Hash Technologies</h1>
+        <h3>Employee Authentication</h3>
         {/**
          * * @dev By default camera is turned off to reduce error
          * * On button click the camera is turned on

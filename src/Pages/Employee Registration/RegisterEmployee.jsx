@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 /**
  * @dev custom api
@@ -77,9 +78,9 @@ export default function RegisterEmployee() {
   };
 
   const registerValidation = () => {
-    if(!employeeImage.captured) {
-      toast.error('Image not Captured!')
-      return false
+    if (!employeeImage.captured) {
+      toast.error("Image not Captured!");
+      return false;
     }
 
     /** @dev check whitespace for full name */
@@ -92,10 +93,7 @@ export default function RegisterEmployee() {
     if (contactNumber.length < 10) {
       toast.error("Invalid Phone Number!");
       return false;
-    }
-
-
-    else return true
+    } else return true;
   };
 
   const handleRegisterEmployee = () => {
@@ -122,6 +120,9 @@ export default function RegisterEmployee() {
 
   return (
     <div className="registerEmployee__container">
+      <Helmet>
+        <title>Register Employee | Hash Technologies</title>
+      </Helmet>
       <h1>Hash Technologies</h1>
       <h3>Register Employee</h3>
 
