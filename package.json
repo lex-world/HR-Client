@@ -19,6 +19,7 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "react-toastify": "^8.1.0",
     "react-webcam": "^6.0.0",
     "sass": "yarn:sass",
     "web-vitals": "^1.0.1"

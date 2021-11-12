@@ -7,6 +7,8 @@ import "./style.scss";
 import Webcam from "react-webcam";
 import { Button } from "@mui/material";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 /**
  * @dev custom api
@@ -74,19 +76,54 @@ export default function RegisterEmployee() {
     setCameraOpened(true);
   };
 
+  const registerValidation = () => {
+    if(!employeeImage.captured) {
+      toast.error('Image not Captured!')
+      return false
+    }
+
+    /** @dev check whitespace for full name */
+    if (!/\s/g.test(fullName)) {
+      toast.error("Enter Full Name!");
+      return false;
+    }
+
+    /** @dev check phone number */
+    if (contactNumber.length < 10) {
+      toast.error("Invalid Phone Number!");
+      return false;
+    }
+
+
+    else return true
+  };
+
   const handleRegisterEmployee = () => {
+    /** @validation */
+    if (!registerValidation()) return;
+
     Axios.post("http://localhost:4000/api/v1/employee/new-employee", {
       fullName,
       dob,
       contactNumber,
       joinedAt,
       descriptors: employeeImageDescriptor,
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      if (res.data.msg === "Completed") {
+        toast.success("Registered Successfully!");
+        setFullName("");
+        setDob(new Date());
+        setContactNumber("");
+        setJoinedAt(new Date());
+        setEmployeeImage({ captured: false, image: null });
+      }
+    });
   };
 
   return (
     <div className="registerEmployee__container">
       <h1>Hash Technologies</h1>
+      <h3>Register Employee</h3>
 
       {/**
        * @dev Check if camera is opened or not
@@ -155,6 +192,8 @@ export default function RegisterEmployee() {
           <Button onClick={handleCameraOpen}>Open Camera</Button>
         </div>
       )}
+
+      <ToastContainer />
     </div>
   );
 }
