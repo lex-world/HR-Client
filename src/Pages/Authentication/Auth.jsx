@@ -16,7 +16,8 @@ import FacialAuthBanner from "../../assets/images/facial.jpg";
  */
 import Webcam from "react-webcam";
 import { Button } from "@mui/material";
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import Axios from "axios";
 
 /**
  * * @dev Import face profile from server later but used mock for dev environment
@@ -43,13 +44,32 @@ class Auth extends Component {
       match: null,
       facingMode: null,
       cameraOpened: false,
+      allDescriptors: {},
     };
   }
 
   /** @dev auto mount when page is loaded */
   componentDidMount = async () => {
     await loadModels();
-    this.setState({ faceMatcher: await createMatcher(JSON_PROFILE) });
+    Axios.get("http://localhost:4000/api/v1/employee/get-all-employee")
+      .then((res) => {
+        (async () => {
+          this.setState({
+            // allDescriptors: JSON.stringify(res.data),
+            // faceMatcher: await createMatcher(JSON_PROFILE),
+            faceMatcher: await createMatcher(res.data),
+          });
+        })()
+      })
+      // .then(() =>
+      // (async () => {
+      //     // console.log(this.state.allDescriptors)
+      //     this.setState({
+      //       faceMatcher: await createMatcher(JSON_PROFILE),
+      //       // faceMatcher: await createMatcher(this.state.allDescriptors),
+      //     });
+      //   })()
+      // );
   };
 
   /**
@@ -98,9 +118,9 @@ class Auth extends Component {
     }
   };
 
-  getEmployeeData = data => {
-    console.log(data)
-  }
+  getEmployeeData = (data) => {
+    console.log(data);
+  };
 
   render() {
     const { detections, match, facingMode } = this.state;
@@ -199,7 +219,7 @@ class Auth extends Component {
           <div className="auth__container__openCamera">
             <img src={FacialAuthBanner} alt="Facial Biometrics Banner" />
             <Button onClick={this.setInputDevice} variant="outlined">
-              Open Camera <CameraAltIcon/>
+              Open Camera <CameraAltIcon />
             </Button>
           </div>
         )}
@@ -230,8 +250,12 @@ class Auth extends Component {
             {!!drawBox ? drawBox : null}
           </div>
         </div>
-        <Button className="auth__container__captureImageBtn" onClick={this.capture} variant="outlined">
-          Click Picture <CameraAltIcon/>
+        <Button
+          className="auth__container__captureImageBtn"
+          onClick={this.capture}
+          variant="outlined"
+        >
+          Click Picture <CameraAltIcon />
         </Button>
       </div>
     );

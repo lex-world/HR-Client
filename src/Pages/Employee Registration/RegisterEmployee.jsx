@@ -3,6 +3,7 @@ import "./style.scss";
 
 import Webcam from "react-webcam";
 import { Button } from "@mui/material";
+import Axios from "axios";
 
 import { getFullFaceDescription, loadModels } from "../../API/face";
 
@@ -29,9 +30,9 @@ export default function RegisterEmployee() {
    * @dev form elements
    */
   const [fullName, setFullName] = React.useState("");
-  const [dob, setDob] = React.useState(Date.now());
+  const [dob, setDob] = React.useState(new Date());
   const [contactNumber, setContactNumber] = React.useState("");
-  const [joinedAt, setJoinedAt] = React.useState(Date.now());
+  const [joinedAt, setJoinedAt] = React.useState(new Date());
 
   React.useEffect(() => {
     (async () => {
@@ -65,7 +66,13 @@ export default function RegisterEmployee() {
   };
 
   const handleRegisterEmployee = () => {
-    console.log(employeeImageDescriptor);
+    Axios.post("http://localhost:4000/api/v1/employee/new-employee", {
+      fullName,
+      dob,
+      contactNumber,
+      joinedAt,
+      descriptors: employeeImageDescriptor,
+    }).then((res) => console.log(res));
   };
 
   return (
@@ -107,16 +114,26 @@ export default function RegisterEmployee() {
 
           <form>
             <label htmlFor="">Full Name</label>
-            <input type="text" placeholder="Himitsu Fushigi" />
+            <input
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullName}
+              type="text"
+              placeholder="Himitsu Fushigi"
+            />
 
             <label htmlFor="">Date of Birth</label>
-            <input type="date" />
+            <input onChange={(e) => setDob(e.target.value)} type="date" />
 
             <label htmlFor="">Contact Number</label>
-            <input type="text" placeholder="9812345678" />
+            <input
+              onChange={(e) => setContactNumber(e.target.value)}
+              value={contactNumber}
+              type="text"
+              placeholder="9812345678"
+            />
 
             <label htmlFor="">Joined At</label>
-            <input type="date" />
+            <input onChange={(e) => setJoinedAt(e.target.value)} type="date" />
 
             <Button onClick={handleRegisterEmployee} variant="contained">
               Register Employee
@@ -125,7 +142,7 @@ export default function RegisterEmployee() {
         </div>
       ) : (
         <div className="registerEmployee__container__cameraNotOpened">
-          <img src={FacialImg} />
+          <img src={FacialImg} alt="monkey" />
           <Button onClick={handleCameraOpen}>Open Camera</Button>
         </div>
       )}
