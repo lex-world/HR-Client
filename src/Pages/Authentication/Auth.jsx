@@ -7,7 +7,7 @@ import {
 import "./style.scss";
 
 /**
- * @assets
+ * @assets custom assets /assets
  */
 import FacialAuthBanner from "../../assets/images/facial.jpg";
 
@@ -20,12 +20,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Axios from "axios";
 
 /**
- * * @dev Import face profile from server later but used mock for dev environment
- */
-const JSON_PROFILE = require("../../Mock/Employees.json");
-
-/**
- * @constants
+ * @constants for webcam in browser
  */
 const WIDTH = 420;
 const HEIGHT = 420;
@@ -51,25 +46,15 @@ class Auth extends Component {
   /** @dev auto mount when page is loaded */
   componentDidMount = async () => {
     await loadModels();
-    Axios.get("http://localhost:4000/api/v1/employee/get-all-employee")
-      .then((res) => {
+    Axios.get("http://localhost:4000/api/v1/employee/get-all-employee").then(
+      (res) => {
         (async () => {
           this.setState({
-            // allDescriptors: JSON.stringify(res.data),
-            // faceMatcher: await createMatcher(JSON_PROFILE),
             faceMatcher: await createMatcher(res.data),
           });
-        })()
-      })
-      // .then(() =>
-      // (async () => {
-      //     // console.log(this.state.allDescriptors)
-      //     this.setState({
-      //       faceMatcher: await createMatcher(JSON_PROFILE),
-      //       // faceMatcher: await createMatcher(this.state.allDescriptors),
-      //     });
-      //   })()
-      // );
+        })();
+      }
+    );
   };
 
   /**
@@ -116,10 +101,6 @@ class Auth extends Component {
         this.setState({ match });
       }
     }
-  };
-
-  getEmployeeData = (data) => {
-    console.log(data);
   };
 
   render() {
@@ -175,7 +156,6 @@ class Auth extends Component {
                   }}
                 >
                   {match[i]._label}
-                  {this.getEmployeeData(match[i])}
                 </p>
               </div>
             ) : (

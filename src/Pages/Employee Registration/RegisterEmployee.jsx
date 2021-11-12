@@ -1,12 +1,21 @@
 import React from "react";
 import "./style.scss";
 
+/**
+ * @packages package from npm registry package
+ */
 import Webcam from "react-webcam";
 import { Button } from "@mui/material";
 import Axios from "axios";
 
+/**
+ * @dev custom api
+ */
 import { getFullFaceDescription, loadModels } from "../../API/face";
 
+/**
+ * @assets /assets
+ */
 import FacialImg from "../../assets/images/facial.jpg";
 
 const videoConstraints = {
@@ -80,7 +89,7 @@ export default function RegisterEmployee() {
       <h1>Hash Technologies</h1>
 
       {/**
-       * * Check if camera is opened or not
+       * @dev Check if camera is opened or not
        */}
       {!!cameraOpened ? (
         <div className="registerEmployee__container__cameraOpened">

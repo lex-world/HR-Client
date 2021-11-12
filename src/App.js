@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.scss";
 
 /**
  * @pages custom page components
  */
 import Auth from "./Pages/Authentication/Auth";
 import RegisterEmployee from "./Pages/Employee Registration/RegisterEmployee";
+import Home from "./Pages/Home/Home";
 
 /**
  * @packages npm registry packages
@@ -17,6 +17,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/auth" element={<Auth />} />
         <Route exact path="/auth/new_employee" element={<RegisterEmployee />} />
       </Routes>
