@@ -19,6 +19,7 @@ import { Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Axios from "axios";
 import { Helmet } from "react-helmet";
+import { toast } from "react-toastify";
 
 /**
  * @constants for webcam in browser
@@ -52,6 +53,7 @@ class Auth extends Component {
         (async () => {
           this.setState({
             faceMatcher: await createMatcher(res.data),
+            allDescriptors: res.data,
           });
         })();
       }
@@ -100,6 +102,16 @@ class Auth extends Component {
           this.state.faceMatcher.findBestMatch(descriptor)
         );
         this.setState({ match });
+
+        //  @dev if user is recognized then returns object else undefined
+        // if(this.state.allDescriptors[match[0]._label]){
+          // Axios.post("uri here", {
+          //   payloads here
+          // })
+        // }
+        // else{
+        // return;
+        // }
       }
     }
   };

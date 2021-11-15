@@ -5,3 +5,5 @@ Face attendance application for offices 😎
 - Attendance
 - Todays Attendance Sheet
 - Attendance to Sheet format (downloadable)
+
+Open for UI Contributions **😂**
