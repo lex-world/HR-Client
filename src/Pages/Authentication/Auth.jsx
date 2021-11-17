@@ -19,7 +19,6 @@ import { Button } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Axios from "axios";
 import { Helmet } from "react-helmet";
-import { toast } from "react-toastify";
 
 /**
  * @constants for webcam in browser
@@ -103,15 +102,20 @@ class Auth extends Component {
         );
         this.setState({ match });
 
-        //  @dev if user is recognized then returns object else undefined
-        // if(this.state.allDescriptors[match[0]._label]){
-          // Axios.post("uri here", {
-          //   payloads here
-          // })
-        // }
-        // else{
-        // return;
-        // }
+        /**
+         * @dev if user is recognized then returns object else undefined
+         */
+        if (this.state.allDescriptors[match[0]._label]) {
+          Axios.post(
+            "http://localhost:4000/api/v1/employee/employee-attendace",
+            {
+              _id: this.state.allDescriptors[match[0]._label]._id,
+              entryTime: Date.now(),
+              /** @dev type is either entry or exit */
+              type: 'entry'
+            }
+          );
+        }
       }
     }
   };

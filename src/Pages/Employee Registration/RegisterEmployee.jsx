@@ -131,6 +131,9 @@ export default function RegisterEmployee() {
        */}
       {!!cameraOpened ? (
         <div className="registerEmployee__container__cameraOpened">
+          <span style={{ color: "red", marginBottom: "10px" }}>
+            Picture should be passport sized image!
+          </span>
           {!employeeImage.captured ? (
             <div className="registerEmployee__container__cameraOpened__camera">
               <Webcam
